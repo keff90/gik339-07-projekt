@@ -15,3 +15,7 @@ server
     
     next();
   });
+
+  server.get(
+    /* */
+  )

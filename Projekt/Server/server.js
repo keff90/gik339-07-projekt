@@ -1,8 +1,8 @@
-const sqlite = require('sqlite3').verbose();
-const db = new sqlite.Database('./katt.db');
-
 const express = require('express');
 const server = express();
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database('./godis.db');
+
 
 
 server
@@ -16,6 +16,18 @@ server
     next();
   });
 
-  server.get(
-    /* */
-  )
+  server.listen(3000, () => {
+    console.log('Server running on http://localhost:3000');
+  });
+
+  server.get('/godis', (req, res) => {
+    const sql = 'SELECT * FROM godis';
+
+    db.all(sql, (err, rows) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.send(rows);
+      }
+    });
+  });

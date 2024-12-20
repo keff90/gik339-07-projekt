@@ -38,6 +38,23 @@ function fetchData() {
 });
 };
 
+console.log(userForm);
+userForm.addEventListener("submit", handleSubmit)
+
+function handleSubmit(e) {
+    e.preventDefault();
+    const serverUserObject = {
+        godisName: "",
+        color: "",
+        price: "",
+    };
+    serverUserObject.godisName = userForm.godisName.value;
+    serverUserObject.color = userForm.color.value;
+    serverUserObject.price = userForm.price.value;
+
+    console.log(serverUserObject);
+}
+
 /*fetch(url)
 .then((response) => response.json())
 .then((godis) => {

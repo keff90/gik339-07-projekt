@@ -12,18 +12,15 @@ function fetchData() {
         godis.forEach(godis => {
             html += `
             <li
-                class="bg-${godis.color}-200 basis-1/4 text-${godis.color}-900 p-2 rounded-md border-2 border-${godis.color}-400 flex flex-col justify-between">
+                class="bg-${(godis.color).toLowerCase()} basis-1/4 text-gray-500 p-2 rounded-md border-2 border-${(godis.color).toLowerCase()} flex flex-col justify-between">
                 <h3>${godis.godisName}</h3>
                 <p>Pris: ${godis.price}</p>
                 <p>Färg: ${godis.color}</p>
                 <div>
-                    <button
-                        class="rounded-md bg-white/50 p-1 text-sm"
-                        <button
-                        class="border border-${godis.color}-300 hover:bg-white/100 rounded-md bg-white/50 p-1 text-sm mt-2">
+                    <button class="border border-${(godis.color).toLowerCase()} hover:bg-white/100 rounded-md bg-white/50 p-1 text-sm mt-2">
                         Ändra
                     </button>
-                    <button class="border border-${godis.color}-300 hover:bg-white/100 rounded-md bg-white/50 p-1 text-sm mt-2">
+                    <button class="border border-${(godis.color).toLowerCase()} hover:bg-white/100 rounded-md bg-white/50 p-1 text-sm mt-2">
                         Ta bort
                     </button>
                 </div>
@@ -37,6 +34,26 @@ function fetchData() {
     }
 });
 };
+
+
+
+console.log(userForm);
+userForm.addEventListener("submit", handleSubmit)
+
+function handleSubmit(e) {
+    e.preventDefault();
+    const serverUserObject = {
+        godisName: "",
+        color: "",
+        price: "",
+    };
+    serverUserObject.godisName = userForm.godisName.value;
+    serverUserObject.color = userForm.color.value;
+    serverUserObject.price = userForm.price.value;
+
+    console.log(serverUserObject);
+};
+
 
 /*fetch(url)
 .then((response) => response.json())

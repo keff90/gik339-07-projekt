@@ -1,8 +1,6 @@
 const express = require('express');
 const server = express();
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./godis.db');
-
 
 
 server
@@ -21,6 +19,7 @@ server
   });
 
   server.get('/godis', (req, res) => {
+    const db = new sqlite3.Database('./godis.db');
     const sql = 'SELECT * FROM godis';
 
     db.all(sql, (err, rows) => {

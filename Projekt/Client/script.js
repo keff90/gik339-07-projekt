@@ -17,10 +17,10 @@ function fetchData() {
                 <p>Pris: ${godis.price}</p>
                 <p>Färg: ${godis.color}</p>
                 <div>
-                    <button class="border border-${(godis.color).toLowerCase()} hover:bg-white/100 rounded-md bg-white/50 p-1 text-sm mt-2">
+                    <button class="border border-${(godis.color).toLowerCase()} hover:bg-white/100 rounded-md bg-white/50 p-1 text-sm mt-2" onclick="setGodis(${godis.id})">
                         Ändra
                     </button>
-                    <button class="border border-${(godis.color).toLowerCase()} hover:bg-white/100 rounded-md bg-white/50 p-1 text-sm mt-2">
+                    <button class="border border-${(godis.color).toLowerCase()} hover:bg-white/100 rounded-md bg-white/50 p-1 text-sm mt-2" onclick="deleteGodis(${godis.id})">
                         Ta bort
                     </button>
                 </div>
@@ -35,31 +35,58 @@ function fetchData() {
 });
 };
 
-console.log(userForm);
-userForm.addEventListener("submit", handleSubmit)
+function setGodis(id) {
+    console.log("Befintliga", id);
+    fetch(`${url}/${id}`)
+    .then(result => result.json())
+    .then(godis => {
+        console.log(godis);
+        godisForm.godisName.value = godis.godisName;
+        godisForm.color.value = godis.color;
+        godisForm.price.value = godis.price;
+
+        localStorage.setItem("currentId", godis.id);
+    });
+};
+
+function deleteGodis(id) {
+    console.log("Ta bort", id);
+    fetch(`${url}/${id}`, { method: "DELETE" }).then(result => fetchData());
+};
+
+console.log(godisForm);
+godisForm.addEventListener("submit", handleSubmit)
 
 function handleSubmit(e) {
     e.preventDefault();
-    const serverUserObject = {
+    const serverGodisObject = {
         godisName: "",
         color: "",
         price: "",
     };
-    serverUserObject.godisName = userForm.godisName.value;
-    serverUserObject.color = userForm.color.value;
-    serverUserObject.price = userForm.price.value;
+    serverGodisObject.godisName = godisForm.godisName.value;
+    serverGodisObject.color = godisForm.color.value;
+    serverGodisObject.price = godisForm.price.value;
 
-    console.log(serverUserObject);
+    const id = localStorage.getItem("currentId");
+    if(id) {
+        serverGodisObject.id = id;
+    }
+
+    /*console.log(serverUserObject);*/
     const request = new Request(url, {
-        method: "POST",
+        method: serverGodisObject.id ? "PUT" : "POST",
         headers: {
             "content-type": "application/json"
         },
-        body: JSON.stringify(serverUserObject)
+        body: JSON.stringify(serverGodisObject)
     });
 
     fetch(request).then(response => {
-        console.log(response);
-        userForm.reset();
+        /*console.log(response);*/
+        fetchData();
+
+        localStorage.removeItem("currentId");
+        godisForm.reset();
     });
 };

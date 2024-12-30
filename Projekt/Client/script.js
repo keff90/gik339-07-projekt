@@ -50,26 +50,16 @@ function handleSubmit(e) {
     serverUserObject.price = userForm.price.value;
 
     console.log(serverUserObject);
-}
-
-
-/*fetch(url)
-.then((response) => response.json())
-.then((godis) => {
-    console.log(godis)
-    const ul = document.createElement("ul");
-    ul.classList.add("class-list");
-    godis.forEach(godis => {
-        const li = document.createElement("li");
-        li.classList.add("class-item");
-        li.innerHTML = `
-        <p>Godissort: ${godisName}</p>
-        <p>Färg: ${color}</p>
-        <p>Pris: ${price}</p>
-        `;
-        li.style.backgroundColor = godis.color;
-        ul.appendChild(li);
+    const request = new Request(url, {
+        method: "POST",
+        headers: {
+            "content-type": "application/json"
+        },
+        body: JSON.stringify(serverUserObject)
     });
-    
-    document.body.appendChild(ul);
-});*/
+
+    fetch(request).then(response => {
+        console.log(response);
+        userForm.reset();
+    });
+};

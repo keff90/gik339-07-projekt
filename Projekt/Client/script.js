@@ -69,21 +69,19 @@ function handleSubmit(e) {
     serverGodisObject.price = godisForm.price.value;
 
     const id = localStorage.getItem("currentId");
-    if(id) {
+    if (id) {
         serverGodisObject.id = id;
     }
 
-    /*console.log(serverUserObject);*/
     const request = new Request(url, {
-        method: serverGodisObject.id ? "PUT" : "POST",
+        method: serverGodisObject.id ? 'PUT' : 'POST',
         headers: {
             "content-type": "application/json"
         },
         body: JSON.stringify(serverGodisObject)
     });
 
-    fetch(request).then(response => {
-        /*console.log(response);*/
+    fetch(request).then((response) => {
         fetchData();
 
         localStorage.removeItem("currentId");

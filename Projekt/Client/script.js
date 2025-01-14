@@ -89,6 +89,7 @@ function handleSubmit(e) {
         body: JSON.stringify(serverGodisObject),
     });
 
+
     fetch(request)
     .then((response) => response.text())
     .then(message => {

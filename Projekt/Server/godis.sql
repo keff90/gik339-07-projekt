@@ -16,7 +16,7 @@ INSERT INTO godis(id, godisName, color, price) VALUES (8, 'Toffifee', 'yellow-90
 INSERT INTO godis(id, godisName, color, price) VALUES (9, 'Choklad', 'yellow-900', '32,90');
 INSERT INTO godis(id, godisName, color, price) VALUES (10, 'Remmar', 'blue-200', '12,49');
 INSERT INTO godis(id, godisName, color, price) VALUES (11, 'Suraremmar', 'green-200', '12,49');
-INSERT INTO godis(id, godisName, color, price) VALUES (12, 'Kexchoklad', 'yellow-200', '11,99');
+INSERT INTO godis(id, godisName, color, price) VALUES (12, 'Kexchocklad', 'yellow-200', '11,99');
 
 
 select * from godis;

@@ -51,7 +51,15 @@ function setGodis(id) {
 
 function deleteGodis(id) {
     console.log("Ta bort", id);
-    fetch(`${url}/${id}`, { method: "DELETE" }).then(result => fetchData());
+    fetch(`${url}/${id}`, { method: "DELETE" })
+    .then(response => {
+        if (response.ok) {
+            showMessage("Godis borttaget", "success");
+            fetchData();
+        } else {
+            showMessage("Kunde inte ta bort godiset.", "error");
+        }
+    });    
 };
 
 console.log(godisForm);
@@ -78,13 +86,42 @@ function handleSubmit(e) {
         headers: {
             "content-type": "application/json"
         },
-        body: JSON.stringify(serverGodisObject)
+        body: JSON.stringify(serverGodisObject),
     });
 
+<<<<<<< HEAD
     fetch(request).then((response) => {
+=======
+    fetch(request)
+    .then((response) => response.text())
+    .then(message => {
+        if (id) {
+            showMessage("Godis uppdaterat", "success");
+        } else {
+            showMessage("Godis tillagt", "success");
+        }
+>>>>>>> 51a97b5c6c66030f5bd52155a11898698ebf0be7
         fetchData();
-
         localStorage.removeItem("currentId");
         godisForm.reset();
+    })
+    .catch(error => {
+        showMessage("Något gick fel. Försök igen", "error");
     });
+};
+
+//ny meddelanderuta, behövs förlängas. syns i knappt en halv sekund vad vi än gör
+function showMessage(message, type = "success") {
+    const messageBox = document.getElementById("messageBox");
+
+    messageBox.className = `fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-6 rounded-md shadow-lg text-center ${
+        type === "success" ? "bg-pink-500" : "bg-red-500"
+    } text-white`;
+
+    messageBox.innerText = message;
+    messageBox.classList.remove("hidden");
+
+    setTimeout(() => {
+        messageBox.classList.add("hidden");
+    }, 5000);
 };

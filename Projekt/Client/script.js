@@ -89,9 +89,7 @@ function handleSubmit(e) {
         body: JSON.stringify(serverGodisObject),
     });
 
-<<<<<<< HEAD
-    fetch(request).then((response) => {
-=======
+
     fetch(request)
     .then((response) => response.text())
     .then(message => {
@@ -100,7 +98,6 @@ function handleSubmit(e) {
         } else {
             showMessage("Godis tillagt", "success");
         }
->>>>>>> 51a97b5c6c66030f5bd52155a11898698ebf0be7
         fetchData();
         localStorage.removeItem("currentId");
         godisForm.reset();
